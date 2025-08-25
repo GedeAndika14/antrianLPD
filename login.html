@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Admin LPD Bali</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin:0; font-family: 'Poppins', sans-serif;
+    display:flex; justify-content:center; align-items:center;
+    height:100vh;
+    background: linear-gradient(135deg,#001b44,#004080);
+  }
+
+  .login-card {
+    background: #f9f9f9;
+    padding: 35px 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+    text-align:center;
+    width: 320px; /* dibatasi biar tidak melebar */
+    animation: fadeIn 0.9s ease;
+    border-top: 6px solid #FFD700;
+  }
+
+  .login-card img {
+    width: 75px; margin-bottom:15px;
+  }
+
+  .login-card h2 {
+    color:#001b44;
+    margin-bottom:8px;
+    font-size: 1.3rem;
+  }
+
+  .login-card p.sub-title {
+    font-size:0.9rem;
+    color:#555;
+    margin-bottom:25px;
+  }
+
+  .input-group {
+    position: relative;
+    margin: 12px 0;
+  }
+  .input-group input {
+    width:100%; 
+    padding:12px 40px 12px 12px;
+    border-radius:10px; 
+    border:1px solid #ccc; 
+    outline:none;
+    font-size:0.9rem;
+  }
+  .input-group input:focus {
+    border-color:#FFD700; 
+    box-shadow:0 0 8px rgba(230,184,0,0.4);
+  }
+  .input-group i {
+    position:absolute; right:12px; top:50%;
+    transform:translateY(-50%); color:#777;
+  }
+
+  .login-card button {
+    width:100%; padding:12px; border:none; border-radius:10px;
+    background: linear-gradient(135deg,#FFD700,#b8860b);
+    font-weight:600; font-size:1rem; cursor:pointer;
+    margin-top:14px; transition:0.3s; color:#001b44;
+    letter-spacing:0.5px;
+  }
+  .login-card button:hover { 
+    transform:translateY(-2px); 
+    filter:brightness(1.08); 
+  }
+
+  .error-msg {
+    color:red; font-size:0.85rem; margin-top:8px;
+  }
+
+  .footer-text {
+    margin-top:20px; font-size:0.75rem; color:#666;
+  }
+
+  @keyframes fadeIn {
+    from { opacity:0; transform: translateY(-20px);}
+    to { opacity:1; transform: translateY(0);}
+  }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="login-card">
+    <img src="img/logo-lpdbali.png" alt="Logo LPD Bali">
+    
+    <h2>Login Admin LPD</h2>
+    <p class="sub-title">Sistem Antrian LPD Bali</p>
+
+    <div class="input-group">
+      <input type="text" id="adminUser" placeholder="Username" required>
+      <i class="fa fa-user"></i>
+    </div>
+
+    <div class="input-group">
+      <input type="password" id="adminPass" placeholder="Password" required>
+      <i class="fa fa-lock"></i>
+    </div>
+
+    <button id="loginBtn">Masuk</button>
+    <p id="loginError" class="error-msg"></p>
+
+    <div class="footer-text">© 2025 LPD Bali</div>
+  </div>
+
+<script>
+  const adminCred = { username:"admin", password:"123" };
+  const loginBtn = document.getElementById("loginBtn");
+  const loginError = document.getElementById("loginError");
+
+  loginBtn.addEventListener("click", ()=>{
+    const user = document.getElementById("adminUser").value.trim();
+    const pass = document.getElementById("adminPass").value.trim();
+
+    if(user === adminCred.username && pass === adminCred.password){
+      sessionStorage.setItem("adminLoggedIn", "true");
+      window.location.href = "antrian.html"; 
+    } else {
+      loginError.textContent = "⚠️ Username atau password salah!";
+    }
+  });
+
+  document.addEventListener("keydown", e=>{
+    if(e.key === "Enter") loginBtn.click();
+  });
+
+  if(sessionStorage.getItem("adminLoggedIn") === "true"){
+    window.location.href = "antrian.html";
+  }
+</script>
+</body>
+</html>
